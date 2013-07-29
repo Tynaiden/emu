@@ -3,6 +3,7 @@ package tyn.emu;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
@@ -19,10 +20,16 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @Mod(modid="Emu", name="EMU", version="0.0.0")
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class Emu {
+	/** BLOCK & ITEM DECLARATIONS */
+	//## Wood Pole ID: 500
+	public final static Block woodPole = new WoodPole(500).func_111022_d("planks");
+	private static final String[] woodPoleNames = { 
+		"Oak Pole", "Spruce Pole", "Birch Pole", "Jungle Pole"};
 
     // The instance of your mod that Forge uses.
     @Instance("Emu")
@@ -40,6 +47,14 @@ public class Emu {
     @EventHandler
     public void load(FMLInitializationEvent event) {
             proxy.registerRenderers();
+            // Wood Poles
+        	LanguageRegistry.addName(woodPole, "Wood Pole");
+        	MinecraftForge.setBlockHarvestLevel(woodPole, "axe", 0);
+        	GameRegistry.registerBlock(woodPole, WoodItemPole.class, "woodPole");
+        	for (int ix = 0; ix < 4; ix++){
+        		ItemStack woodPoleStack = new ItemStack(woodPole, 1, ix);
+        		LanguageRegistry.addName(woodPoleStack, woodPoleNames[ix]);
+        	}
             
         	// Rotten Flesh into Leather
         	ItemStack fleshStack = new ItemStack(Item.rottenFlesh);
@@ -54,9 +69,10 @@ public class Emu {
     	    GameRegistry.addRecipe(new ItemStack(Block.blockClay, 8), "xyx", "yzy", "xyx",
     	            'x', dirtStack, 'y', sandStack, 'z', waterBucket);
     	    // Wool block into Strings
-    	    ItemStack woolStack = new ItemStack(Block.cloth, 42, -1);
-    	    GameRegistry.addShapelessRecipe(new ItemStack(Item.silk, 4), woolStack);
-    	    // Wool & Iron into Chain Armor
+    	    for(int tmp=0; tmp<16; tmp++){
+    	    	GameRegistry.addShapelessRecipe(new ItemStack(Item.silk, 4), new ItemStack(Block.cloth, 1, tmp));
+    	    }
+    	    // Leather & Iron into Chain Armor
     	    ItemStack ingotStack = new ItemStack(Item.ingotIron);
     	    GameRegistry.addRecipe(new ItemStack(Item.helmetChain),
     	    		"yxy", "x x", 'x', leatherStack, 'y', ingotStack);

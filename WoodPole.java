@@ -29,7 +29,7 @@ public class WoodPole extends Block{
         setHardness(2.0F);
         setResistance(5.0F);
         setCreativeTab(CreativeTabs.tabDecorations);
-        
+        this.setBlockBounds(0.375F, 0.0F, 0.375F, 0.625F , 1.0F, 0.625F);
     }
 
     @SideOnly(Side.CLIENT)
@@ -76,10 +76,10 @@ public class WoodPole extends Block{
         super.addCollisionBoxesToList(par1World, par2, par3, par4, par5AxisAlignedBB, par6List, par7Entity);
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int par2, int par3, int par4){
-    	this.setBlockBounds(0.375F, 0.0F, 0.375F, 0.625F , 1.0F, 0.625F);
+/*    public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int par2, int par3, int par4){
+    	//this.setBlockBounds(0.375F, 0.0F, 0.375F, 0.625F , 1.0F, 0.625F);
     	// SOMEWHERE IN HERE I NEED TO FIGURE SIDE AND SIZE
-/*		int pos = (par1IBlockAccess.getBlockMetadata(par2, par3, par4) & 8);
+		int pos = (par1IBlockAccess.getBlockMetadata(par2, par3, par4) & 4);
 
         switch (pos)
         {
@@ -93,9 +93,9 @@ public class WoodPole extends Block{
         	case 5:
         		this.setBlockBounds(0.0F, 0.375F, 0.375F, 0.1F , 0.625F, 0.625F);
         }
-*/
-    }
 
+    }
+*/
     public boolean isOpaqueCube()
     {
         return false;
@@ -108,7 +108,7 @@ public class WoodPole extends Block{
 
     public int getRenderType()
     {
-        return 0;
+        return 31;
     }
 
     @SideOnly(Side.CLIENT)

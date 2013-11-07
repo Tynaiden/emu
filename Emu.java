@@ -26,6 +26,10 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class Emu {
 	/** BLOCK & ITEM DECLARATIONS */
+	//## Wood Slat ID: 498
+	public final static Block woodSlat = new WoodSlat(498, false).func_111022_d("planks");
+	private static final String[] woodSlatNames = { 
+		"Oak Slat", "Spruce Slat", "Birch Slat", "Jungle Slat"};
 	//## Wood Pole ID: 500
 	public final static Block woodPole = new WoodPole(500).func_111022_d("planks");
 	private static final String[] woodPoleNames = { 
@@ -47,6 +51,15 @@ public class Emu {
     @EventHandler
     public void load(FMLInitializationEvent event) {
             proxy.registerRenderers();
+            // Wood Slats (vertical slabs)
+        	LanguageRegistry.addName(woodSlat, "Wood Slat");
+        	MinecraftForge.setBlockHarvestLevel(woodSlat, "axe", 0);
+        	GameRegistry.registerBlock(woodSlat, WoodItemSlat.class, "woodSlat");
+        	for (int ix = 0; ix < 4; ix++){
+        		ItemStack woodPoleStack = new ItemStack(woodSlat, 1, ix);
+        		LanguageRegistry.addName(woodPoleStack, woodSlatNames[ix]);
+        	}
+            
             // Wood Poles
         	LanguageRegistry.addName(woodPole, "Wood Pole");
         	MinecraftForge.setBlockHarvestLevel(woodPole, "axe", 0);

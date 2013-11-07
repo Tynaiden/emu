@@ -27,7 +27,12 @@ Lilypad seeds to grow more Lilypads
   -- possibly like pumpkins but over water
   -- fallback to Wheat if not ^^^
 
+multi-block structures to summon NPCs such as merchants.
+expanded currency with coins. possibly craftable with a minting press.
+
 Stone / Metal Poles
+
+Dyeable / more color / types Horse Armor & Saddles
 
 
 # README #
@@ -44,7 +49,7 @@ Item IDs: [open range 4109-4499]
 
 New blocks:
 -- Wood Pole
-   like Fence but does not connect to anything.
+   like Fence but does not 'connect' to adjacent blocks.
 
 Expanded crafting recipes:
 -- Craft 2x2 Rotten Flesh into Leather

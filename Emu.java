@@ -27,11 +27,11 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 public class Emu {
 	/** BLOCK & ITEM DECLARATIONS */
 	//## Wood Slat ID: 498
-	public final static Block woodSlat = new WoodSlat(498, false).func_111022_d("planks");
+	public final static Block woodSlat = new WoodSlat(498, false).setTextureName("planks");
 	private static final String[] woodSlatNames = { 
 		"Oak Slat", "Spruce Slat", "Birch Slat", "Jungle Slat"};
 	//## Wood Pole ID: 500
-	public final static Block woodPole = new WoodPole(500).func_111022_d("planks");
+	public final static Block woodPole = new WoodPole(500).setTextureName("planks");
 	private static final String[] woodPoleNames = { 
 		"Oak Pole", "Spruce Pole", "Birch Pole", "Jungle Pole"};
 

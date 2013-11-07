@@ -164,7 +164,7 @@ public class WoodPole extends Block{
 
         for (int i = 0; i < this.iconArray.length; ++i)
         {
-            this.iconArray[i] = par1IconRegister.registerIcon(this.func_111023_E() + "_" + woodType[i]);
+            this.iconArray[i] = par1IconRegister.registerIcon(this.getTextureName() + "_" + woodType[i]);
         }
     }
 

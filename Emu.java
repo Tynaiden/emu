@@ -21,21 +21,25 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import net.minecraftforge.common.Configuration;
 
 @Mod(modid="Emu", name="EMU", version="0.0.0")
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class Emu {
-	/** BLOCK & ITEM DECLARATIONS */
+	/** ++ BLOCK & ITEM GLOBALS */
 	//## Wood Slat ID: 498
-	public final static Block woodSlat = new WoodSlat(498, false).setTextureName("planks");
-	private static final String[] woodSlatNames = { 
-		"Oak Slat", "Spruce Slat", "Birch Slat", "Jungle Slat"};
+//	public final static Block woodSlat = new WoodSlat(498, false).setTextureName("planks");
+//	private static final String[] woodSlatNames = { 
+//		"Oak Slat", "Spruce Slat", "Birch Slat", "Jungle Slat"};
 	//## Wood Pole ID: 500
-	public final static Block woodPole = new WoodPole(500).setTextureName("planks");
+	public static Block woodPole;
+	public static int woodPoleID;
 	private static final String[] woodPoleNames = { 
-		"Oak Pole", "Spruce Pole", "Birch Pole", "Jungle Pole"};
+		"Oak Wood Pole", "Spruce Wood Pole", "Birch Wood Pole", "Jungle Wood Pole"};
+	/** -- BLOCK & ITEM GLOBALS */
 
-    // The instance of your mod that Forge uses.
+
+	// The instance of your mod that Forge uses.
     @Instance("Emu")
     public static Emu instance;
     
@@ -43,24 +47,33 @@ public class Emu {
     @SidedProxy(clientSide="tyn.emu.client.ClientProxy", serverSide="tyn.emu.CommonProxy")
     public static CommonProxy proxy;
     
-  /*  @EventHandler
+    @EventHandler  //prev. @PreInit
     public void preInit(FMLPreInitializationEvent event) {
-            // Stub Method
-    } */
+    	/** ++ CONFIG FILE IO */
+    	Configuration config = new Configuration(event.getSuggestedConfigurationFile());
+        config.load();
+        woodPoleID = config.getBlock("WoodPole", 500).getInt();
+        
+        config.save();
+    	/** -- CONFIG FILE IO */
+        
+    }
     
-    @EventHandler
+    @EventHandler  //prev. @Init
     public void load(FMLInitializationEvent event) {
             proxy.registerRenderers();
             // Wood Slats (vertical slabs)
-        	LanguageRegistry.addName(woodSlat, "Wood Slat");
-        	MinecraftForge.setBlockHarvestLevel(woodSlat, "axe", 0);
-        	GameRegistry.registerBlock(woodSlat, WoodItemSlat.class, "woodSlat");
-        	for (int ix = 0; ix < 4; ix++){
-        		ItemStack woodPoleStack = new ItemStack(woodSlat, 1, ix);
-        		LanguageRegistry.addName(woodPoleStack, woodSlatNames[ix]);
-        	}
+//        	LanguageRegistry.addName(woodSlat, "Wood Slat");
+//        	MinecraftForge.setBlockHarvestLevel(woodSlat, "axe", 0);
+//        	GameRegistry.registerBlock(woodSlat, WoodItemSlat.class, "woodSlat");
+//        	for (int ix = 0; ix < 4; ix++){
+//        		ItemStack woodPoleStack = new ItemStack(woodSlat, 1, ix);
+//        		LanguageRegistry.addName(woodPoleStack, woodSlatNames[ix]);
+//        	}
             
             // Wood Poles
+            /** ++ BLOCK & ITEM INITS */
+            woodPole = new WoodPole(woodPoleID).setTextureName("planks");
         	LanguageRegistry.addName(woodPole, "Wood Pole");
         	MinecraftForge.setBlockHarvestLevel(woodPole, "axe", 0);
         	GameRegistry.registerBlock(woodPole, WoodItemPole.class, "woodPole");
@@ -68,6 +81,7 @@ public class Emu {
         		ItemStack woodPoleStack = new ItemStack(woodPole, 1, ix);
         		LanguageRegistry.addName(woodPoleStack, woodPoleNames[ix]);
         	}
+            /** -- BLOCK & ITEM GLOBAL INITS */
             
         	// Rotten Flesh into Leather
         	ItemStack fleshStack = new ItemStack(Item.rottenFlesh);
@@ -97,8 +111,8 @@ public class Emu {
     	    		"y x", "x x", 'x', leatherStack, 'y', ingotStack);
     }
     
-/*    @EventHandler
+    @EventHandler  //prev. @PostInit
     public void postInit(FMLPostInitializationEvent event) {
             // Stub Method
-    } */
+    }
 }

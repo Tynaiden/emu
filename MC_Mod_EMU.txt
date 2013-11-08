@@ -38,7 +38,7 @@ Dyeable / more color / types Horse Armor & Saddles
 # README #
 
 Block IDs: [open range 500-510] 
- 498 - Wood Slat(s) [metadata: 0-Oak, 1-Spruce, 2-Birch, 3-Jungle]
+ 498 - Wood Slat(s) [metadata: 0-Oak, 1-Spruce, 2-Birch, 3-Jungle] n.i.
  499 - 
  500 - Wood Pole(s) [metadata: 0-Oak, 1-Spruce, 2-Birch, 3-Jungle]
  501 - Stone & Metal Pole(s) [metadata: 0-Cobble, 1-
